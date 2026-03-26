@@ -1,3 +1,5 @@
+import logo from './assets/logo.png';
+
 const trainers = [
   {
     name: 'Наталья',
@@ -46,21 +48,11 @@ const trainers = [
 function Logo() {
   return (
     <div className="mb-6 flex items-center">
-      <svg
-        viewBox="0 0 740 350"
-        className="h-auto w-[260px] md:w-[340px]"
-        aria-label="МИД Студия танцев"
-        role="img"
-      >
-        <path d="M80 45 L160 125 L240 45" fill="none" stroke="#ff1a1a" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M65 280 L65 115 L160 205 L255 115 L255 280" fill="none" stroke="#ff1a1a" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M310 40 L310 270" fill="none" stroke="#ff1a1a" strokeWidth="10" strokeLinecap="round" />
-        <path d="M390 270 L470 40 L470 270" fill="none" stroke="#ff1a1a" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M525 45 L605 45 L655 280 L525 280 Z" fill="none" stroke="#f4f4f4" strokeWidth="10" strokeLinejoin="round" />
-        <text x="175" y="337" fill="#f4f4f4" fontSize="46" fontWeight="300" letterSpacing="1.5" style={{ fontFamily: 'system-ui, sans-serif' }}>
-          Студия танцев
-        </text>
-      </svg>
+      <img
+        src={logo}
+        alt="МИД Студия танцев"
+        className="w-[220px] md:w-[300px] h-auto object-contain"
+      />
     </div>
   );
 }
