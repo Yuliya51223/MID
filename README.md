@@ -1,25 +1,21 @@
-# Bachata Studio Site
+# Bachata Studio Site — fixed build for GitHub Pages
 
-Готовый React + Vite + Tailwind проект сайта студии танцев.
+## Что уже исправлено
+- `vite.config.js` вместо `vite.config.ts`
+- `base: './'` для GitHub Pages
+- `deploy` скрипт уже добавлен
+- `gh-pages` уже добавлен в devDependencies
+- логотип берётся из `public/logo.png`
+- все кнопки ведут на одну форму VK
 
-## Запуск локально
+## Команды
 
 ```bash
 npm install
-npm run dev
-```
-
-## Сборка
-
-```bash
 npm run build
+npm run deploy
 ```
 
-## Что уже настроено
-
-- Все кнопки записи ведут на одну форму VK
-- Логотип берётся из файла `public/logo.png`
-
-Ссылка на форму:
+## Ссылка формы
 
 `https://vk.com/app6013442_-184393065?form_id=1#form_id=1`

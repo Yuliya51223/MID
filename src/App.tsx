@@ -47,7 +47,7 @@ function Logo() {
   return (
     <div className="mb-6 flex items-center">
       <img
-        src="/logo.png"
+        src="./logo.png"
         alt="МИД Студия танцев"
         className="h-auto w-[220px] object-contain md:w-[300px]"
       />
