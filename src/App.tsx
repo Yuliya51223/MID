@@ -1,5 +1,3 @@
-import logo from './assets/logo.png';
-
 const trainers = [
   {
     name: 'Наталья',
@@ -49,9 +47,9 @@ function Logo() {
   return (
     <div className="mb-6 flex items-center">
       <img
-        src={logo}
+        src="/logo.png"
         alt="МИД Студия танцев"
-        className="w-[220px] md:w-[300px] h-auto object-contain"
+        className="h-auto w-[220px] object-contain md:w-[300px]"
       />
     </div>
   );
