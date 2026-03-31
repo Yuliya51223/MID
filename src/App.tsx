@@ -12,10 +12,24 @@ import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { Input } from "./components/ui/input";
 
+<<<<<<< HEAD
 const STORAGE_KEY = "mid-attendance-app-v3";
 const SETTINGS_KEY = "mid-attendance-app-settings-v1";
 const DEFAULT_SYNC_URL =
   "https://d5dlcqfpq7hr3ukgr32i.g3ab4gln.apigw.yandexcloud.net/state";
+=======
+function Logo() {
+  return (
+    <div className="mb-6 flex items-center">
+      <img
+        src="./logo.png"
+        alt="МИД Студия танцев"
+        className="h-auto w-[220px] object-contain md:w-[300px]"
+      />
+    </div>
+  );
+}
+>>>>>>> 8658bfb0631a300880292f7bd3f6772e2bacd2fb
 
 const SUBSCRIPTION_OPTIONS = [0, 1, 4, 8, 12, 24];
 const WEEKDAY_LABELS = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
