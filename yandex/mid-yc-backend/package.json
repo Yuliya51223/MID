@@ -1,0 +1,9 @@
+{
+  "name": "mid-yc-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "ydb-sdk": "^5.11.1",
+    "@yandex-cloud/nodejs-sdk": "^2.9.1"
+  }
+}
