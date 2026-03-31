@@ -336,9 +336,30 @@ export default function MidAttendanceManager() {
   const [syncUrl] = useState(() => localStorage.getItem(SETTINGS_KEY) || DEFAULT_SYNC_URL);
   const [syncStatus, setSyncStatus] = useState("");
 
-// Загрузка из Google Sheets при открытии
+  async function saveToCloud(currentMonths: MonthData[]) {
+    if (!syncUrl) return;
+
+    try {
+      await fetch(syncUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ months: currentMonths }),
+      });
+
+      setSyncStatus(
+        `Сохранено: ${new Date().toLocaleTimeString("ru-RU", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}`
+      );
+    } catch {
+      setSyncStatus("Ошибка сохранения в облако.");
+    }
+  }
+
+  // Загрузка из Yandex API при открытии
   useEffect(() => {
-    async function loadFromGoogleSheets() {
+    async function loadFromCloud() {
       try {
         const response = await fetch(syncUrl, { method: "GET" });
         const data = await response.json();
@@ -349,7 +370,7 @@ export default function MidAttendanceManager() {
             setMonths(normalized);
             setActiveMonthId(normalized[0]?.id);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
-            setSyncStatus("Данные загружены из Google Sheets.");
+            setSyncStatus("Данные загружены из облака.");
           }
         }
       } catch {
@@ -357,7 +378,7 @@ export default function MidAttendanceManager() {
       }
     }
 
-    if (syncUrl) loadFromGoogleSheets();
+    if (syncUrl) loadFromCloud();
   }, [syncUrl]);
 
   useEffect(() => {
@@ -368,34 +389,33 @@ export default function MidAttendanceManager() {
     localStorage.setItem(SETTINGS_KEY, syncUrl);
   }, [syncUrl]);
 
+  // Быстрое автосохранение через 2 секунды после изменений
+  useEffect(() => {
+    if (!syncUrl || !months.length) return;
+
+    const timeout = window.setTimeout(() => {
+      saveToCloud(months);
+    }, 2000);
+
+    return () => window.clearTimeout(timeout);
+  }, [months, syncUrl]);
+
+  // Резервное сохранение каждые 15 минут
+  useEffect(() => {
+    if (!syncUrl) return;
+
+    const interval = window.setInterval(() => {
+      saveToCloud(months);
+    }, 15 * 60 * 1000);
+
+    return () => window.clearInterval(interval);
+  }, [months, syncUrl]);
+
   useEffect(() => {
     if (!months.find((month) => month.id === activeMonthId)) {
       setActiveMonthId(months[0]?.id);
     }
   }, [months, activeMonthId]);
-
-// Автосохранение в Google Sheets каждые 15 минут
-  useEffect(() => {
-    if (!syncUrl) return;
-
-    const interval = window.setInterval(async () => {
-      try {
-        await fetch(syncUrl, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ months }),
-        });
-        setSyncStatus(`Автосохранение: ${new Date().toLocaleTimeString("ru-RU", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}`);
-      } catch {
-        setSyncStatus("Ошибка автосохранения в Google Sheets.");
-      }
-    }, 15 * 60 * 1000);
-
-    return () => window.clearInterval(interval);
-  }, [months, syncUrl]);
 
   const activeMonthIndex = useMemo(
     () => months.findIndex((month) => month.id === activeMonthId),
@@ -590,7 +610,7 @@ export default function MidAttendanceManager() {
                   Учёт учеников
                 </CardTitle>
                 <p className="mt-2 text-slate-500">
-                  Данные синхронизируются с Google Sheets и доступны с любого устройства.
+                  Данные синхронизируются с облаком и доступны с любого устройства.
                 </p>
                 {syncStatus && <p className="mt-2 text-sm text-slate-600">{syncStatus}</p>}
               </div>

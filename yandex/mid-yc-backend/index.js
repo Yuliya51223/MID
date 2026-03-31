@@ -1,29 +1,24 @@
 import pkg from "ydb-sdk";
 
-const { Driver, MetadataAuthService, SessionPool, TypedValues } = pkg;
+const { Driver, MetadataAuthService, TypedValues } = pkg;
 
-const endpoint =
-  "grpcs://ydb.serverless.yandexcloud.net:2135/?database=/ru-central1/b1gg25flf8mn48thb2bu/etndv3jh713l369jtgj4";
-
-const database =
-  "/ru-central1/b1gg25flf8mn48thb2bu/etndv3jh713l369jtgj4";
+const endpoint = "grpcs://ydb.serverless.yandexcloud.net:2135";
+const database = "/ru-central1/b1gg25flf8mn48thb2bu/etndv3jh713l369jtgj4";
 
 let driver;
-let pool;
 
-async function getPool() {
+async function getDriver() {
   if (!driver) {
     driver = new Driver({
       endpoint,
       database,
-      authService: new MetadataAuthService(),
+      authService: new MetadataAuthService(database),
     });
 
     await driver.ready(10000);
-    pool = new SessionPool(driver);
   }
 
-  return pool;
+  return driver;
 }
 
 function headers() {
@@ -39,10 +34,10 @@ export const handler = async (event) => {
       event.requestContext?.http?.method ||
       "GET";
 
-    const pool = await getPool();
+    const driver = await getDriver();
 
     if (method === "GET") {
-      const result = await pool.retryOperation(async (session) => {
+      const result = await driver.tableClient.withSession(async (session) => {
         return session.executeQuery(`
           SELECT data
           FROM app_state
@@ -51,7 +46,7 @@ export const handler = async (event) => {
       });
 
       const rows = result.resultSets?.[0]?.rows || [];
-      const data = rows.length ? rows[0].data : "[]";
+      const data = rows.length ? rows[0].items?.[0]?.textValue || "[]" : "[]";
 
       return {
         statusCode: 200,
@@ -64,14 +59,16 @@ export const handler = async (event) => {
       const body = JSON.parse(event.body || "{}");
       const months = JSON.stringify(body.months || []);
 
-      await pool.retryOperation(async (session) => {
+      await driver.tableClient.withSession(async (session) => {
         return session.executeQuery(
           `
+          DECLARE $data AS Utf8;
+
           UPSERT INTO app_state (id, data)
           VALUES ("months", $data);
           `,
           {
-            "$data": TypedValues.utf8(months),
+            $data: TypedValues.utf8(months),
           }
         );
       });
