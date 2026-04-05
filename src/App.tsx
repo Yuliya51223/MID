@@ -80,10 +80,10 @@ export default function App() {
             <div>
               <Logo />
               <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">
-                Бачата, женский стиль и растяжка
+                Парная бачата, женский стиль и растяжка
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75 md:text-xl">
-                Удобные занятия после работы — с 19:00. Подходит для начинающих, в комфортной атмосфере и с понятным стартом.
+                Удобные занятия после работы — с 18:00. Подходит для начинающих, в комфортной атмосфере и с понятным стартом.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -99,19 +99,19 @@ export default function App() {
             <div className="rounded-[2rem] border border-white/10 bg-white/10 p-8 shadow-2xl backdrop-blur-xl md:p-10">
               <h2 className="mb-4 text-2xl font-semibold text-white">Где находится студия</h2>
               <p className="text-lg leading-relaxed text-white/80">
-                г. Волгоград, пр-т им. Ленина, 31 (Дом офицеров), 3 этаж, 29 аудитория
+                г. Волгоград, пр-т им. Ленина, 31 (Дом офицеров), 3 этаж, 59 аудитория
               </p>
               <div className="mt-6 rounded-2xl border border-white/10 bg-black/15 p-5">
                 <p className="font-medium text-white">Адрес студии:</p>
                 <p className="mt-2 text-white/75">
                   г. Волгоград,<br />
                   пр-т им. Ленина, 31<br />
-                  (Дом офицеров), 3 этаж, 29 аудитория
+                  (Дом офицеров), 3 этаж, 59 аудитория
                 </p>
               </div>
               <div className="mt-6 rounded-2xl border border-fuchsia-300/15 bg-fuchsia-500/10 p-5">
                 <p className="font-medium text-white">Время занятий</p>
-                <p className="mt-2 text-lg text-white/85">с 19:00 — удобно после работы</p>
+                <p className="mt-2 text-lg text-white/85">с 18:00 — удобно после работы</p>
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function App() {
               <div className="mb-3 text-sm font-medium text-fuchsia-300">Для начинающих</div>
               <h3 className="text-2xl font-semibold text-white">Бачата с нуля</h3>
               <p className="mt-4 flex-1 leading-relaxed text-white/70">Группа для тех, кто хочет начать танцевать с нуля в комфортном темпе и после рабочего дня.</p>
-              <div className="mt-6 font-medium text-white/90">Занятия с 19:00</div>
+              <div className="mt-6 font-medium text-white/90">Занятия с 20:00</div>
               <button onClick={handleSignup} className="mt-6 rounded-2xl bg-gradient-to-r from-fuchsia-500 to-pink-500 px-5 py-3 text-base font-medium text-white shadow-xl transition hover:scale-[1.02]">
                 Записаться на «Бачата с нуля»
               </button>
@@ -148,7 +148,7 @@ export default function App() {
               <div className="mb-3 text-sm font-medium text-blue-300">Для тела и гибкости</div>
               <h3 className="text-2xl font-semibold text-white">Растяжка</h3>
               <p className="mt-4 flex-1 leading-relaxed text-white/70">Занятия для гибкости, лёгкости в движении и хорошего самочувствия, в удобное вечернее время.</p>
-              <div className="mt-6 font-medium text-white/90">Занятия с 19:00</div>
+              <div className="mt-6 font-medium text-white/90">Занятия с 18:00</div>
               <button onClick={handleSignup} className="mt-6 rounded-2xl bg-gradient-to-r from-blue-500 to-violet-500 px-5 py-3 text-base font-medium text-white shadow-xl transition hover:scale-[1.02]">
                 Записаться на «Растяжку»
               </button>
@@ -177,7 +177,7 @@ export default function App() {
           <div className="grid items-center gap-8 rounded-[2rem] border border-white/10 bg-black/20 p-8 shadow-2xl backdrop-blur-xl md:grid-cols-2 md:p-12">
             <div>
               <h2 className="text-3xl font-bold leading-tight text-white md:text-4xl">Приходите на занятия после работы</h2>
-              <p className="mt-4 text-lg leading-relaxed text-white/70">Вечерние группы с 19:00 — удобно встроить танцы и растяжку в свой график без спешки.</p>
+              <p className="mt-4 text-lg leading-relaxed text-white/70">Вечерние группы с 18:00 — удобно встроить танцы и растяжку в свой график без спешки.</p>
             </div>
             <div className="flex flex-col gap-3">
               <button onClick={handleSignup} className="rounded-2xl bg-gradient-to-r from-fuchsia-500 to-pink-500 px-6 py-3 text-base font-medium text-white shadow-xl transition hover:scale-[1.02]">Записаться на «Бачата с нуля»</button>
